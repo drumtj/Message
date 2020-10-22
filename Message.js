@@ -24,7 +24,7 @@ class Message {
           }
         }
         if(cbn){
-          if(chrome.tabs){
+          if(chrome.tabs && sender.tab){
             chrome.tabs.sendMessage(sender.tab.id, {rcbn:cbn, data:result});
           }else{
             chrome.runtime.sendMessage({rcbn:cbn, data:result});
@@ -40,7 +40,7 @@ class Message {
   }
 
   send(com, data, tabId){
-    if(chrome.tabs){
+    if(chrome.tabs && tabId){
       return new Promise(resolve=>{
         let cbn = this.setCb(resolve);
         chrome.tabs.sendMessage(tabId, {com, data, cbn});
